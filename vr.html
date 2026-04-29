@@ -1,45 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frame VR Experiences</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AY25-26 Faculty Reach by Program</title>
   <style>
+    :root {
+      --mizzou-black: #000000;
+      --mizzou-gold: #f1b82d;
+      --mizzou-gold-soft: #f6d26f;
+      --ink: #171717;
+      --card: #ffffff;
+      --muted: #5a5a5a;
+      --bg: #f8f7f2;
+      --ring: rgba(241, 184, 45, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
-      text-align: center;
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 10% 0%, #fffdf5 0%, var(--bg) 40%, #f2f1ec 100%);
+      color: var(--ink);
     }
-    h1 {
-      margin-bottom: 30px;
-      font-size: 2rem;
-    }
-    .link-button {
-      display: block;
-      margin: 15px auto;
-      padding: 15px 25px;
-      background-color: #007bff;
+    .hero {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(120deg, var(--mizzou-black) 0%, #191919 55%, #2b2b2b 100%);
       color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      width: 80%;
-      max-width: 400px;
+      padding: 1rem 1.25rem;
+      border-bottom: 4px solid var(--mizzou-gold);
+      box-shadow: 0 8px 25px rgba(0,0,0,.2);
     }
-    .link-button:hover {
-      background-color: #0056b3;
+    .hero h1 { margin: 0; font-size: clamp(1.2rem, 2.3vw, 2rem); }
+    .hero p { margin: .35rem 0 0; color: #f5f5f5; }
+    .wrap { max-width: 1200px; margin: 1.3rem auto 4rem; padding: 0 1rem; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: .9rem;
+      margin-bottom: 1rem;
     }
+    .stat {
+      background: var(--card);
+      border: 1px solid #e7e6df;
+      border-left: 8px solid var(--mizzou-gold);
+      border-radius: 14px;
+      padding: .95rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .stat:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,.12); }
+    .stat small { color: var(--muted); display: block; }
+    .stat strong { font-size: 1.7rem; }
+
+    .controls { display:flex; gap:.7rem; flex-wrap:wrap; margin: 1.2rem 0; }
+    input, select {
+      border: 1px solid #d8d8cf;
+      border-radius: 10px;
+      padding: .7rem .8rem;
+      font-size: .98rem;
+      outline: none;
+      background: #fff;
+    }
+    input:focus, select:focus { box-shadow: 0 0 0 4px var(--ring); border-color: var(--mizzou-gold); }
+    #search { min-width: 260px; flex: 1; }
+
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+    .program {
+      background: var(--card);
+      border: 1px solid #e6e5df;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      transform: translateY(25px);
+      opacity: 0;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+    .program.visible { transform: translateY(0); opacity: 1; }
+    .program h3 { margin:0 0 .5rem; color:#111; }
+    .meta { display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:.65rem; }
+    .chip {
+      font-size: .75rem;
+      padding: .25rem .45rem;
+      border-radius: 999px;
+      background: #fef4d4;
+      border: 1px solid #f3d37a;
+    }
+    .bars { display:grid; gap:.36rem; }
+    .bar-row { display:grid; grid-template-columns: 135px 1fr 34px; align-items:center; gap:.45rem; font-size:.85rem; }
+    .bar {
+      height: 9px; border-radius: 999px;
+      background: linear-gradient(90deg, var(--mizzou-gold), var(--mizzou-gold-soft));
+      transform-origin: left;
+      animation: grow 1.2s ease;
+    }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .empty { padding:1.2rem; background:#fff8e8; border:1px dashed #f1b82d; border-radius:12px; }
   </style>
 </head>
 <body>
-  <h1>Frame VR Experiences</h1>
-  <a class="link-button" href="https://framevr.io/abbytomillo" target="_blank">Abby Tomillo</a>
-  <a class="link-button" href="https://framevr.io/group1frame" target="_blank">Group 1</a>
-  <a class="link-button" href="https://framevr.io/group2frame" target="_blank">Group 2</a>
-  <a class="link-button" href="https://framevr.io/jessicaosaze" target="_blank">Jessica Osaze</a>
-  <a class="link-button" href="https://framevr.io/mosesataben" target="_blank">Moses Ataben</a>
-  <a class="link-button" href="https://framevr.io/suyogpawar" target="_blank">Suoyg Pawar</a>
-  <a class="link-button" href="https://framevr.io/git-zos-mue" target="_blank">Hitendra Jha</a>
+  <header class="hero">
+    <h1>AY25–26 Faculty Reach by Program</h1>
+    <p>Interactive view with searchable programs, college participation graphics, and Mizzou styling.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="stats" id="stats"></section>
+
+    <section class="controls">
+      <input id="search" type="search" placeholder="Search program, facilitator, or college…" />
+      <select id="ownerFilter">
+        <option value="all">All Facilitators</option>
+      </select>
+    </section>
+
+    <section id="programGrid" class="grid"></section>
+  </main>
+
+  <script>
+    const programs = [
+      { owner:'Flower Darby', name:'Teaching for All Learners', timeframe:'Fall 2025 & Spring 2026', attendance:55, completed:24, colleges:{'CEHD':8,'Arts & Science':5,'Veterinary Medicine':3,'CAFNR':2,'School of Medicine':2,'Engineering':1,'Health Sciences':1,'Nursing':1,'Gov & Public Affairs':1}},
+      { owner:'Flower Darby', name:'Teaching Renewal Week (TRW) Keynote', timeframe:'January 2026', attendance:133, colleges:{'Arts & Science':33,'Health Sciences':22,'Education':18,'CAFNR':17,'Business':8,'Engineering':6,'Medicine':6,'Veterinary':3,'Law':1,'Honors':1,'External':1}},
+      { owner:'Lydia Bentley', name:'Teaching Essentials/New Faculty Orientation', timeframe:'Summer/Fall 2025', attendance:38, sessions:6, colleges:{}},
+      { owner:'Lydia Bentley', name:'Teaching Essentials – Planning for Success', attendance:7, colleges:{'Journalism':1,'Health Sciences':1,'Nursing':1,'CAFNR':2,'Veterinary Medicine':1,'CEHD':1}},
+      { owner:'Lydia Bentley', name:'Teaching Essentials – Learning Journey', attendance:7, colleges:{'Nursing':1,'Journalism':1,'Health Sciences':1,'Veterinary Medicine':1,'CAFNR':2,'Engineering':1}},
+      { owner:'Lydia Bentley', name:'Graduate Student Series – Effectively Organize Lectures', attendance:18, colleges:{'CAFNR':2,'Arts & Science':6,'CEHD':4,'School of Medicine':1,'Veterinary Medicine':2,'Nursing':2,'Unknown':1}},
+      { owner:'Other T4LC Staff', name:'Fall Forum: Keynote AI Literacy', attendance:57, colleges:{'Arts & Science':12,'CAFNR':1,'CEHD':3,'Engineering':1,'Health Sciences':2,'Nursing':1,'Administrative/Other':11,'Unknown':5}},
+      { owner:'Other T4LC Staff', name:'Integrating AI Across the Curriculum', attendance:17, colleges:{'Arts & Science':4,'CAFNR':2,'CEHD':1,'Health Sciences':3,'School of Medicine':1,'Administrative/Other':5,'Unknown':1}},
+      { owner:'Other T4LC Staff', name:'Featured Presentation: A Match Made in Education Heaven', attendance:39, colleges:{'Arts & Science':12,'CAFNR':1,'CEHD':3,'Engineering':1,'Health Sciences':2,'Nursing':1,'Administrative/Other':11,'Unknown':5}},
+      { owner:'Other T4LC Staff', name:'Review of Teaching Series (all sessions)', attendance:35, colleges:{'CAFNR':11,'Arts & Science':11,'Engineering':2,'CEHD':3,'Veterinary Medicine':4,'School of Medicine':2,'Health Sciences':2,'Administrative/Other':7}},
+      { owner:'Other T4LC Staff', name:'HIPs / CoP Sessions (sample listed)', attendance:79, colleges:{'Arts & Science':50,'CAFNR':5,'Business':2,'School of Medicine':1,'Administrative/Other':17,'CEHD':3,'Engineering':1,'Nursing':2,'Law':1,'Journalism':2,'Veterinary Medicine':1,'Health Sciences':1}}
+    ];
+
+    const ownerFilter = document.getElementById('ownerFilter');
+    [...new Set(programs.map(p => p.owner))].forEach(owner => {
+      const opt = document.createElement('option'); opt.value = owner; opt.textContent = owner; ownerFilter.appendChild(opt);
+    });
+
+    const stats = document.getElementById('stats');
+    const grid = document.getElementById('programGrid');
+    const search = document.getElementById('search');
+
+    function calcStats(data) {
+      return {
+        programs: data.length,
+        attendance: data.reduce((n,p)=>n+(p.attendance||0),0),
+        completed: data.reduce((n,p)=>n+(p.completed||0),0),
+        facilitators: new Set(data.map(p=>p.owner)).size
+      };
+    }
+
+    function render(data) {
+      const s = calcStats(data);
+      stats.innerHTML = `
+        <article class="stat"><small>Total programs listed</small><strong>${s.programs}</strong></article>
+        <article class="stat"><small>Total attendees (reported)</small><strong>${s.attendance}</strong></article>
+        <article class="stat"><small>Course completions</small><strong>${s.completed}</strong></article>
+        <article class="stat"><small>Facilitators represented</small><strong>${s.facilitators}</strong></article>`;
+
+      if (!data.length) { grid.innerHTML = '<div class="empty">No matching programs found. Try a broader search.</div>'; return; }
+      grid.innerHTML = data.map(p => {
+        const entries = Object.entries(p.colleges || {});
+        const max = Math.max(...entries.map(([,v])=>v), 1);
+        const bars = entries.slice().sort((a,b)=>b[1]-a[1]).map(([k,v]) => `
+          <div class="bar-row"><span>${k}</span><div class="bar" style="width:${(v/max)*100}%"></div><strong>${v}</strong></div>`).join('');
+        return `<article class="program reveal">
+          <h3>${p.name}</h3>
+          <div class="meta"><span class="chip">${p.owner}</span>${p.timeframe ? `<span class="chip">${p.timeframe}</span>` : ''}<span class="chip">Attendance: ${p.attendance || 0}</span>${p.completed ? `<span class="chip">Completed: ${p.completed}</span>`:''}</div>
+          <div class="bars">${bars || '<em>No college breakdown provided.</em>'}</div>
+        </article>`;
+      }).join('');
+
+      observeCards();
+    }
+
+    function applyFilters() {
+      const q = search.value.trim().toLowerCase();
+      const owner = ownerFilter.value;
+      const filtered = programs.filter(p => {
+        const hay = [p.name,p.owner,p.timeframe,...Object.keys(p.colleges||{})].join(' ').toLowerCase();
+        const ownerMatch = owner === 'all' || p.owner === owner;
+        return ownerMatch && (!q || hay.includes(q));
+      });
+      render(filtered);
+    }
+
+    function observeCards() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.program').forEach(el => io.observe(el));
+    }
+
+    search.addEventListener('input', applyFilters);
+    ownerFilter.addEventListener('change', applyFilters);
+    applyFilters();
+  </script>
 </body>
 </html>
